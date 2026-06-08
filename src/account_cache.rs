@@ -440,6 +440,13 @@ pub fn fallback_unix_timestamp() -> i64 {
         .unwrap_or(0)
 }
 
+pub(crate) fn unix_now() -> u64 {
+    SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0)
+}
+
 fn estimate_unix_timestamp(slot: u64, seed_slot: u64, seed_unix: i64) -> i64 {
     const SLOT_MS: u128 = 400;
     const SAFETY_SECONDS: i64 = 2;
